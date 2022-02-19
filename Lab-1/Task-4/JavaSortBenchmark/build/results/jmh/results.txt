@@ -1,0 +1,2 @@
+Benchmark                               Mode  Cnt          Score   Error  Units
+sortBenchmark.SortBenchmarks.MergeSort  avgt       130393562.338          ns/op

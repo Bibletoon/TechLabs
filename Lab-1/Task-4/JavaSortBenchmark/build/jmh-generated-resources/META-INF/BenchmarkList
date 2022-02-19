@@ -1,0 +1,2 @@
+JMH S 42 com.bibletoon.sortBenchmark.SortBenchmarks S 76 com.bibletoon.sortBenchmark.jmh_generated.SortBenchmarks_DefaultSort_jmhTest S 11 DefaultSort S 11 AverageTime E A 1 1 1 E I 1 0 E E I 1 1 E E I 1 1 I 1 0 E E E E E U 11 NANOSECONDS E E 
+JMH S 42 com.bibletoon.sortBenchmark.SortBenchmarks S 74 com.bibletoon.sortBenchmark.jmh_generated.SortBenchmarks_MergeSort_jmhTest S 9 MergeSort S 11 AverageTime E A 1 1 1 E I 1 0 E E I 1 1 E E I 1 1 I 1 0 E E E E E U 11 NANOSECONDS E E 
