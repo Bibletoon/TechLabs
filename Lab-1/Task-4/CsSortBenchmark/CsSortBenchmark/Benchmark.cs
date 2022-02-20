@@ -2,6 +2,7 @@
 
 namespace CsSortBenchmark;
 
+[MemoryDiagnoser]
 public class Benchmark
 {
     private int[] _arrayForDefaultSort;
