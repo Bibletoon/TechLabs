@@ -383,3 +383,94 @@ BenchmarkRunner.Run<Benchmark>();
 
 ### Часть 2. Бенчмарки в Java
 
+Самым распространённым инструментом для создания бенчмакров в java является jmh
+
+Код бенчмарка:
+
+```java
+package com.bibletoon.sortBenchmark;
+
+import org.openjdk.jmh.annotations.*;
+import org.openjdk.jmh.infra.Blackhole;
+
+import java.util.Arrays;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+
+import com.bibletoon.sort.MergeSort;
+
+@BenchmarkMode(Mode.AverageTime)
+@Warmup(iterations = 0)
+@Fork(value = 1, warmups = 0)
+@Measurement(iterations = 1)
+@OutputTimeUnit(TimeUnit.NANOSECONDS)
+@State(Scope.Benchmark)
+public class SortBenchmarks {
+    public static int[] arrayForDefaultSort;
+    public static int[] arrayForMergeSort;
+    public static long defaultSortMemory = 0;
+    public static long mergeSortMemory = 0;
+
+    @Setup(Level.Invocation)
+    public static void Setup() {
+        Random r = new Random();
+        arrayForDefaultSort = new int[2000000];
+        arrayForMergeSort = new int[2000000];
+        for (int i=0;i<2000000;i++) {
+            arrayForDefaultSort[i] = r.nextInt();
+            arrayForMergeSort[i] = r.nextInt();
+        }
+
+        defaultSortMemory = (Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory());
+        mergeSortMemory = (Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory());
+    }
+
+    @Benchmark
+    public void DefaultSort(Blackhole blackhole) {
+        Arrays.sort(arrayForDefaultSort);
+        defaultSortMemory = (Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory()) - defaultSortMemory;
+        blackhole.consume(arrayForDefaultSort);
+    }
+
+    @Benchmark
+    public void MergeSort(Blackhole blackhole) {
+        MergeSort.RecursiveMergeSort(arrayForMergeSort, 2000000);
+        mergeSortMemory = (Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory()) - mergeSortMemory;
+        blackhole.consume(arrayForMergeSort);
+    }
+
+    @TearDown(Level.Iteration)
+    public static void TearDown() {
+        System.out.println("Default sort took "+defaultSortMemory+" B memory");
+        System.out.println("Merge sort took "+mergeSortMemory+" B memory");
+    }
+}
+
+```
+
+Результаты бенчмарка
+
+Benchmark                                |  Mode |  Cnt         |  Score |   Error |  Units
+---------------------------------------- | ----- | --- | --- | --- | ---
+sortBenchmark.SortBenchmarks.DefaultSort |  avgt |       |  865936.016 |       |   ns/op
+sortBenchmark.SortBenchmarks.MergeSort   |  avgt |      | 181259701.786 |       |   ns/op
+
+К сожалению jmh и другие библиотеки не предоставляют инструментов для замеров аллокаций памяти, поэтому были проведены кустарные методы для замеров. Были получены такие результаты
+
+> Default sort took 1048576 B memory
+> 
+> Merge sort took 53694480 B memory
+
+## Задание 5
+
+Используя инструменты dotTrace, dotMemory, всё-что-угодно-хоть-windbg, проанализировать работу написанного кода для бекапов. Необходимо написать сценарий, когда в цикле будет выполняться много запусков, будут создаваться и удаляться точки. Проверить два сценария: с реальной работой с файловой системой и без неё. В отчёте неоходимо проанализировать полученные результаты, сделать вывод о написанном коде. 
+
+Запуск с InMemory режиме
+
+![](Task-5/InMemory.png)
+
+Запуск в локальном режиме
+
+![](Task-5/Local.png)
+
+По графиккам видно, что во время создания бекапа занималось большое количество памяти (то есть все файлы, которые в дальнейшем бекапились сохранялись в памяти) и только при сохранении она очищалась (по работе с InMemory хранилищем видно, что забекапленные файлы занимают куда меньше памяти после конца работы, чем во время). Так же работа с локальным хранилищем заняла существенно меньше времени чем с InMemory хранилищем.
