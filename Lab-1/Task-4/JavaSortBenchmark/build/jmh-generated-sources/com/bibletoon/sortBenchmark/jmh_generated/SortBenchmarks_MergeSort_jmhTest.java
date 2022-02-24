@@ -75,7 +75,6 @@ public final class SortBenchmarks_MergeSort_jmhTest {
                 try {
                     if (control.isFailing) throw new FailureAssistException();
                     if (!l_sortbenchmarks0_G.readyIteration) {
-                        l_sortbenchmarks0_G.Setup();
                         l_sortbenchmarks0_G.readyIteration = true;
                     }
                 } catch (Throwable t) {
@@ -94,7 +93,44 @@ public final class SortBenchmarks_MergeSort_jmhTest {
 
             control.announceWarmupReady();
             while (control.warmupShouldWait) {
+                if (SortBenchmarks_jmhType.setupInvocationMutexUpdater.compareAndSet(l_sortbenchmarks0_G, 0, 1)) {
+                    try {
+                        if (control.isFailing) throw new FailureAssistException();
+                        if (!l_sortbenchmarks0_G.readyInvocation) {
+                            l_sortbenchmarks0_G.Setup();
+                            l_sortbenchmarks0_G.readyInvocation = true;
+                        }
+                    } catch (Throwable t) {
+                        control.isFailing = true;
+                        throw t;
+                    } finally {
+                        SortBenchmarks_jmhType.setupInvocationMutexUpdater.set(l_sortbenchmarks0_G, 0);
+                    }
+                } else {
+                    while (SortBenchmarks_jmhType.setupInvocationMutexUpdater.get(l_sortbenchmarks0_G) == 1) {
+                        if (control.isFailing) throw new FailureAssistException();
+                        if (Thread.interrupted()) throw new InterruptedException();
+                    }
+                }
                 l_sortbenchmarks0_G.MergeSort(blackhole);
+                if (SortBenchmarks_jmhType.tearInvocationMutexUpdater.compareAndSet(l_sortbenchmarks0_G, 0, 1)) {
+                    try {
+                        if (control.isFailing) throw new FailureAssistException();
+                        if (l_sortbenchmarks0_G.readyInvocation) {
+                            l_sortbenchmarks0_G.readyInvocation = false;
+                        }
+                    } catch (Throwable t) {
+                        control.isFailing = true;
+                        throw t;
+                    } finally {
+                        SortBenchmarks_jmhType.tearInvocationMutexUpdater.set(l_sortbenchmarks0_G, 0);
+                    }
+                } else {
+                    while (SortBenchmarks_jmhType.tearInvocationMutexUpdater.get(l_sortbenchmarks0_G) == 1) {
+                        if (control.isFailing) throw new FailureAssistException();
+                        if (Thread.interrupted()) throw new InterruptedException();
+                    }
+                }
                 res.allOps++;
             }
 
@@ -104,7 +140,44 @@ public final class SortBenchmarks_MergeSort_jmhTest {
             control.announceWarmdownReady();
             try {
                 while (control.warmdownShouldWait) {
+                    if (SortBenchmarks_jmhType.setupInvocationMutexUpdater.compareAndSet(l_sortbenchmarks0_G, 0, 1)) {
+                        try {
+                            if (control.isFailing) throw new FailureAssistException();
+                            if (!l_sortbenchmarks0_G.readyInvocation) {
+                                l_sortbenchmarks0_G.Setup();
+                                l_sortbenchmarks0_G.readyInvocation = true;
+                            }
+                        } catch (Throwable t) {
+                            control.isFailing = true;
+                            throw t;
+                        } finally {
+                            SortBenchmarks_jmhType.setupInvocationMutexUpdater.set(l_sortbenchmarks0_G, 0);
+                        }
+                    } else {
+                        while (SortBenchmarks_jmhType.setupInvocationMutexUpdater.get(l_sortbenchmarks0_G) == 1) {
+                            if (control.isFailing) throw new FailureAssistException();
+                            if (Thread.interrupted()) throw new InterruptedException();
+                        }
+                    }
                     l_sortbenchmarks0_G.MergeSort(blackhole);
+                    if (SortBenchmarks_jmhType.tearInvocationMutexUpdater.compareAndSet(l_sortbenchmarks0_G, 0, 1)) {
+                        try {
+                            if (control.isFailing) throw new FailureAssistException();
+                            if (l_sortbenchmarks0_G.readyInvocation) {
+                                l_sortbenchmarks0_G.readyInvocation = false;
+                            }
+                        } catch (Throwable t) {
+                            control.isFailing = true;
+                            throw t;
+                        } finally {
+                            SortBenchmarks_jmhType.tearInvocationMutexUpdater.set(l_sortbenchmarks0_G, 0);
+                        }
+                    } else {
+                        while (SortBenchmarks_jmhType.tearInvocationMutexUpdater.get(l_sortbenchmarks0_G) == 1) {
+                            if (control.isFailing) throw new FailureAssistException();
+                            if (Thread.interrupted()) throw new InterruptedException();
+                        }
+                    }
                     res.allOps++;
                 }
                 control.preTearDown();
@@ -115,6 +188,7 @@ public final class SortBenchmarks_MergeSort_jmhTest {
                 try {
                     if (control.isFailing) throw new FailureAssistException();
                     if (l_sortbenchmarks0_G.readyIteration) {
+                        l_sortbenchmarks0_G.TearDown();
                         l_sortbenchmarks0_G.readyIteration = false;
                     }
                 } catch (Throwable t) {
@@ -155,7 +229,46 @@ public final class SortBenchmarks_MergeSort_jmhTest {
         long realTime = 0;
         result.startTime = System.nanoTime();
         do {
+            if (SortBenchmarks_jmhType.setupInvocationMutexUpdater.compareAndSet(l_sortbenchmarks0_G, 0, 1)) {
+                try {
+                    if (control.isFailing) throw new FailureAssistException();
+                    if (!l_sortbenchmarks0_G.readyInvocation) {
+                        l_sortbenchmarks0_G.Setup();
+                        l_sortbenchmarks0_G.readyInvocation = true;
+                    }
+                } catch (Throwable t) {
+                    control.isFailing = true;
+                    throw t;
+                } finally {
+                    SortBenchmarks_jmhType.setupInvocationMutexUpdater.set(l_sortbenchmarks0_G, 0);
+                }
+            } else {
+                while (SortBenchmarks_jmhType.setupInvocationMutexUpdater.get(l_sortbenchmarks0_G) == 1) {
+                    if (control.isFailing) throw new FailureAssistException();
+                    if (Thread.interrupted()) throw new InterruptedException();
+                }
+            }
+            long rt = System.nanoTime();
             l_sortbenchmarks0_G.MergeSort(blackhole);
+            realTime += (System.nanoTime() - rt);
+            if (SortBenchmarks_jmhType.tearInvocationMutexUpdater.compareAndSet(l_sortbenchmarks0_G, 0, 1)) {
+                try {
+                    if (control.isFailing) throw new FailureAssistException();
+                    if (l_sortbenchmarks0_G.readyInvocation) {
+                        l_sortbenchmarks0_G.readyInvocation = false;
+                    }
+                } catch (Throwable t) {
+                    control.isFailing = true;
+                    throw t;
+                } finally {
+                    SortBenchmarks_jmhType.tearInvocationMutexUpdater.set(l_sortbenchmarks0_G, 0);
+                }
+            } else {
+                while (SortBenchmarks_jmhType.tearInvocationMutexUpdater.get(l_sortbenchmarks0_G) == 1) {
+                    if (control.isFailing) throw new FailureAssistException();
+                    if (Thread.interrupted()) throw new InterruptedException();
+                }
+            }
             operations++;
         } while(!control.isDone);
         result.stopTime = System.nanoTime();
@@ -181,7 +294,6 @@ public final class SortBenchmarks_MergeSort_jmhTest {
                 try {
                     if (control.isFailing) throw new FailureAssistException();
                     if (!l_sortbenchmarks0_G.readyIteration) {
-                        l_sortbenchmarks0_G.Setup();
                         l_sortbenchmarks0_G.readyIteration = true;
                     }
                 } catch (Throwable t) {
@@ -200,7 +312,44 @@ public final class SortBenchmarks_MergeSort_jmhTest {
 
             control.announceWarmupReady();
             while (control.warmupShouldWait) {
+                if (SortBenchmarks_jmhType.setupInvocationMutexUpdater.compareAndSet(l_sortbenchmarks0_G, 0, 1)) {
+                    try {
+                        if (control.isFailing) throw new FailureAssistException();
+                        if (!l_sortbenchmarks0_G.readyInvocation) {
+                            l_sortbenchmarks0_G.Setup();
+                            l_sortbenchmarks0_G.readyInvocation = true;
+                        }
+                    } catch (Throwable t) {
+                        control.isFailing = true;
+                        throw t;
+                    } finally {
+                        SortBenchmarks_jmhType.setupInvocationMutexUpdater.set(l_sortbenchmarks0_G, 0);
+                    }
+                } else {
+                    while (SortBenchmarks_jmhType.setupInvocationMutexUpdater.get(l_sortbenchmarks0_G) == 1) {
+                        if (control.isFailing) throw new FailureAssistException();
+                        if (Thread.interrupted()) throw new InterruptedException();
+                    }
+                }
                 l_sortbenchmarks0_G.MergeSort(blackhole);
+                if (SortBenchmarks_jmhType.tearInvocationMutexUpdater.compareAndSet(l_sortbenchmarks0_G, 0, 1)) {
+                    try {
+                        if (control.isFailing) throw new FailureAssistException();
+                        if (l_sortbenchmarks0_G.readyInvocation) {
+                            l_sortbenchmarks0_G.readyInvocation = false;
+                        }
+                    } catch (Throwable t) {
+                        control.isFailing = true;
+                        throw t;
+                    } finally {
+                        SortBenchmarks_jmhType.tearInvocationMutexUpdater.set(l_sortbenchmarks0_G, 0);
+                    }
+                } else {
+                    while (SortBenchmarks_jmhType.tearInvocationMutexUpdater.get(l_sortbenchmarks0_G) == 1) {
+                        if (control.isFailing) throw new FailureAssistException();
+                        if (Thread.interrupted()) throw new InterruptedException();
+                    }
+                }
                 res.allOps++;
             }
 
@@ -210,7 +359,44 @@ public final class SortBenchmarks_MergeSort_jmhTest {
             control.announceWarmdownReady();
             try {
                 while (control.warmdownShouldWait) {
+                    if (SortBenchmarks_jmhType.setupInvocationMutexUpdater.compareAndSet(l_sortbenchmarks0_G, 0, 1)) {
+                        try {
+                            if (control.isFailing) throw new FailureAssistException();
+                            if (!l_sortbenchmarks0_G.readyInvocation) {
+                                l_sortbenchmarks0_G.Setup();
+                                l_sortbenchmarks0_G.readyInvocation = true;
+                            }
+                        } catch (Throwable t) {
+                            control.isFailing = true;
+                            throw t;
+                        } finally {
+                            SortBenchmarks_jmhType.setupInvocationMutexUpdater.set(l_sortbenchmarks0_G, 0);
+                        }
+                    } else {
+                        while (SortBenchmarks_jmhType.setupInvocationMutexUpdater.get(l_sortbenchmarks0_G) == 1) {
+                            if (control.isFailing) throw new FailureAssistException();
+                            if (Thread.interrupted()) throw new InterruptedException();
+                        }
+                    }
                     l_sortbenchmarks0_G.MergeSort(blackhole);
+                    if (SortBenchmarks_jmhType.tearInvocationMutexUpdater.compareAndSet(l_sortbenchmarks0_G, 0, 1)) {
+                        try {
+                            if (control.isFailing) throw new FailureAssistException();
+                            if (l_sortbenchmarks0_G.readyInvocation) {
+                                l_sortbenchmarks0_G.readyInvocation = false;
+                            }
+                        } catch (Throwable t) {
+                            control.isFailing = true;
+                            throw t;
+                        } finally {
+                            SortBenchmarks_jmhType.tearInvocationMutexUpdater.set(l_sortbenchmarks0_G, 0);
+                        }
+                    } else {
+                        while (SortBenchmarks_jmhType.tearInvocationMutexUpdater.get(l_sortbenchmarks0_G) == 1) {
+                            if (control.isFailing) throw new FailureAssistException();
+                            if (Thread.interrupted()) throw new InterruptedException();
+                        }
+                    }
                     res.allOps++;
                 }
                 control.preTearDown();
@@ -221,6 +407,7 @@ public final class SortBenchmarks_MergeSort_jmhTest {
                 try {
                     if (control.isFailing) throw new FailureAssistException();
                     if (l_sortbenchmarks0_G.readyIteration) {
+                        l_sortbenchmarks0_G.TearDown();
                         l_sortbenchmarks0_G.readyIteration = false;
                     }
                 } catch (Throwable t) {
@@ -261,7 +448,46 @@ public final class SortBenchmarks_MergeSort_jmhTest {
         long realTime = 0;
         result.startTime = System.nanoTime();
         do {
+            if (SortBenchmarks_jmhType.setupInvocationMutexUpdater.compareAndSet(l_sortbenchmarks0_G, 0, 1)) {
+                try {
+                    if (control.isFailing) throw new FailureAssistException();
+                    if (!l_sortbenchmarks0_G.readyInvocation) {
+                        l_sortbenchmarks0_G.Setup();
+                        l_sortbenchmarks0_G.readyInvocation = true;
+                    }
+                } catch (Throwable t) {
+                    control.isFailing = true;
+                    throw t;
+                } finally {
+                    SortBenchmarks_jmhType.setupInvocationMutexUpdater.set(l_sortbenchmarks0_G, 0);
+                }
+            } else {
+                while (SortBenchmarks_jmhType.setupInvocationMutexUpdater.get(l_sortbenchmarks0_G) == 1) {
+                    if (control.isFailing) throw new FailureAssistException();
+                    if (Thread.interrupted()) throw new InterruptedException();
+                }
+            }
+            long rt = System.nanoTime();
             l_sortbenchmarks0_G.MergeSort(blackhole);
+            realTime += (System.nanoTime() - rt);
+            if (SortBenchmarks_jmhType.tearInvocationMutexUpdater.compareAndSet(l_sortbenchmarks0_G, 0, 1)) {
+                try {
+                    if (control.isFailing) throw new FailureAssistException();
+                    if (l_sortbenchmarks0_G.readyInvocation) {
+                        l_sortbenchmarks0_G.readyInvocation = false;
+                    }
+                } catch (Throwable t) {
+                    control.isFailing = true;
+                    throw t;
+                } finally {
+                    SortBenchmarks_jmhType.tearInvocationMutexUpdater.set(l_sortbenchmarks0_G, 0);
+                }
+            } else {
+                while (SortBenchmarks_jmhType.tearInvocationMutexUpdater.get(l_sortbenchmarks0_G) == 1) {
+                    if (control.isFailing) throw new FailureAssistException();
+                    if (Thread.interrupted()) throw new InterruptedException();
+                }
+            }
             operations++;
         } while(!control.isDone);
         result.stopTime = System.nanoTime();
@@ -287,7 +513,6 @@ public final class SortBenchmarks_MergeSort_jmhTest {
                 try {
                     if (control.isFailing) throw new FailureAssistException();
                     if (!l_sortbenchmarks0_G.readyIteration) {
-                        l_sortbenchmarks0_G.Setup();
                         l_sortbenchmarks0_G.readyIteration = true;
                     }
                 } catch (Throwable t) {
@@ -306,7 +531,44 @@ public final class SortBenchmarks_MergeSort_jmhTest {
 
             control.announceWarmupReady();
             while (control.warmupShouldWait) {
+                if (SortBenchmarks_jmhType.setupInvocationMutexUpdater.compareAndSet(l_sortbenchmarks0_G, 0, 1)) {
+                    try {
+                        if (control.isFailing) throw new FailureAssistException();
+                        if (!l_sortbenchmarks0_G.readyInvocation) {
+                            l_sortbenchmarks0_G.Setup();
+                            l_sortbenchmarks0_G.readyInvocation = true;
+                        }
+                    } catch (Throwable t) {
+                        control.isFailing = true;
+                        throw t;
+                    } finally {
+                        SortBenchmarks_jmhType.setupInvocationMutexUpdater.set(l_sortbenchmarks0_G, 0);
+                    }
+                } else {
+                    while (SortBenchmarks_jmhType.setupInvocationMutexUpdater.get(l_sortbenchmarks0_G) == 1) {
+                        if (control.isFailing) throw new FailureAssistException();
+                        if (Thread.interrupted()) throw new InterruptedException();
+                    }
+                }
                 l_sortbenchmarks0_G.MergeSort(blackhole);
+                if (SortBenchmarks_jmhType.tearInvocationMutexUpdater.compareAndSet(l_sortbenchmarks0_G, 0, 1)) {
+                    try {
+                        if (control.isFailing) throw new FailureAssistException();
+                        if (l_sortbenchmarks0_G.readyInvocation) {
+                            l_sortbenchmarks0_G.readyInvocation = false;
+                        }
+                    } catch (Throwable t) {
+                        control.isFailing = true;
+                        throw t;
+                    } finally {
+                        SortBenchmarks_jmhType.tearInvocationMutexUpdater.set(l_sortbenchmarks0_G, 0);
+                    }
+                } else {
+                    while (SortBenchmarks_jmhType.tearInvocationMutexUpdater.get(l_sortbenchmarks0_G) == 1) {
+                        if (control.isFailing) throw new FailureAssistException();
+                        if (Thread.interrupted()) throw new InterruptedException();
+                    }
+                }
                 res.allOps++;
             }
 
@@ -320,7 +582,44 @@ public final class SortBenchmarks_MergeSort_jmhTest {
             control.announceWarmdownReady();
             try {
                 while (control.warmdownShouldWait) {
+                    if (SortBenchmarks_jmhType.setupInvocationMutexUpdater.compareAndSet(l_sortbenchmarks0_G, 0, 1)) {
+                        try {
+                            if (control.isFailing) throw new FailureAssistException();
+                            if (!l_sortbenchmarks0_G.readyInvocation) {
+                                l_sortbenchmarks0_G.Setup();
+                                l_sortbenchmarks0_G.readyInvocation = true;
+                            }
+                        } catch (Throwable t) {
+                            control.isFailing = true;
+                            throw t;
+                        } finally {
+                            SortBenchmarks_jmhType.setupInvocationMutexUpdater.set(l_sortbenchmarks0_G, 0);
+                        }
+                    } else {
+                        while (SortBenchmarks_jmhType.setupInvocationMutexUpdater.get(l_sortbenchmarks0_G) == 1) {
+                            if (control.isFailing) throw new FailureAssistException();
+                            if (Thread.interrupted()) throw new InterruptedException();
+                        }
+                    }
                     l_sortbenchmarks0_G.MergeSort(blackhole);
+                    if (SortBenchmarks_jmhType.tearInvocationMutexUpdater.compareAndSet(l_sortbenchmarks0_G, 0, 1)) {
+                        try {
+                            if (control.isFailing) throw new FailureAssistException();
+                            if (l_sortbenchmarks0_G.readyInvocation) {
+                                l_sortbenchmarks0_G.readyInvocation = false;
+                            }
+                        } catch (Throwable t) {
+                            control.isFailing = true;
+                            throw t;
+                        } finally {
+                            SortBenchmarks_jmhType.tearInvocationMutexUpdater.set(l_sortbenchmarks0_G, 0);
+                        }
+                    } else {
+                        while (SortBenchmarks_jmhType.tearInvocationMutexUpdater.get(l_sortbenchmarks0_G) == 1) {
+                            if (control.isFailing) throw new FailureAssistException();
+                            if (Thread.interrupted()) throw new InterruptedException();
+                        }
+                    }
                     res.allOps++;
                 }
                 control.preTearDown();
@@ -331,6 +630,7 @@ public final class SortBenchmarks_MergeSort_jmhTest {
                 try {
                     if (control.isFailing) throw new FailureAssistException();
                     if (l_sortbenchmarks0_G.readyIteration) {
+                        l_sortbenchmarks0_G.TearDown();
                         l_sortbenchmarks0_G.readyIteration = false;
                     }
                 } catch (Throwable t) {
@@ -371,6 +671,26 @@ public final class SortBenchmarks_MergeSort_jmhTest {
         long time = 0;
         int currentStride = 0;
         do {
+            if (SortBenchmarks_jmhType.setupInvocationMutexUpdater.compareAndSet(l_sortbenchmarks0_G, 0, 1)) {
+                try {
+                    if (control.isFailing) throw new FailureAssistException();
+                    if (!l_sortbenchmarks0_G.readyInvocation) {
+                        l_sortbenchmarks0_G.Setup();
+                        l_sortbenchmarks0_G.readyInvocation = true;
+                    }
+                } catch (Throwable t) {
+                    control.isFailing = true;
+                    throw t;
+                } finally {
+                    SortBenchmarks_jmhType.setupInvocationMutexUpdater.set(l_sortbenchmarks0_G, 0);
+                }
+            } else {
+                while (SortBenchmarks_jmhType.setupInvocationMutexUpdater.get(l_sortbenchmarks0_G) == 1) {
+                    if (control.isFailing) throw new FailureAssistException();
+                    if (Thread.interrupted()) throw new InterruptedException();
+                }
+            }
+            long rt = System.nanoTime();
             rnd = (rnd * 1664525 + 1013904223);
             boolean sample = (rnd & rndMask) == 0;
             if (sample) {
@@ -386,6 +706,25 @@ public final class SortBenchmarks_MergeSort_jmhTest {
                     buffer.half();
                     currentStride = 0;
                     rndMask = (rndMask << 1) + 1;
+                }
+            }
+            realTime += (System.nanoTime() - rt);
+            if (SortBenchmarks_jmhType.tearInvocationMutexUpdater.compareAndSet(l_sortbenchmarks0_G, 0, 1)) {
+                try {
+                    if (control.isFailing) throw new FailureAssistException();
+                    if (l_sortbenchmarks0_G.readyInvocation) {
+                        l_sortbenchmarks0_G.readyInvocation = false;
+                    }
+                } catch (Throwable t) {
+                    control.isFailing = true;
+                    throw t;
+                } finally {
+                    SortBenchmarks_jmhType.tearInvocationMutexUpdater.set(l_sortbenchmarks0_G, 0);
+                }
+            } else {
+                while (SortBenchmarks_jmhType.tearInvocationMutexUpdater.get(l_sortbenchmarks0_G) == 1) {
+                    if (control.isFailing) throw new FailureAssistException();
+                    if (Thread.interrupted()) throw new InterruptedException();
                 }
             }
             operations++;
@@ -412,7 +751,6 @@ public final class SortBenchmarks_MergeSort_jmhTest {
                 try {
                     if (control.isFailing) throw new FailureAssistException();
                     if (!l_sortbenchmarks0_G.readyIteration) {
-                        l_sortbenchmarks0_G.Setup();
                         l_sortbenchmarks0_G.readyIteration = true;
                     }
                 } catch (Throwable t) {
@@ -438,6 +776,7 @@ public final class SortBenchmarks_MergeSort_jmhTest {
                 try {
                     if (control.isFailing) throw new FailureAssistException();
                     if (l_sortbenchmarks0_G.readyIteration) {
+                        l_sortbenchmarks0_G.TearDown();
                         l_sortbenchmarks0_G.readyIteration = false;
                     }
                 } catch (Throwable t) {
@@ -473,7 +812,46 @@ public final class SortBenchmarks_MergeSort_jmhTest {
         result.startTime = System.nanoTime();
         for (int b = 0; b < batchSize; b++) {
             if (control.volatileSpoiler) return;
+            if (SortBenchmarks_jmhType.setupInvocationMutexUpdater.compareAndSet(l_sortbenchmarks0_G, 0, 1)) {
+                try {
+                    if (control.isFailing) throw new FailureAssistException();
+                    if (!l_sortbenchmarks0_G.readyInvocation) {
+                        l_sortbenchmarks0_G.Setup();
+                        l_sortbenchmarks0_G.readyInvocation = true;
+                    }
+                } catch (Throwable t) {
+                    control.isFailing = true;
+                    throw t;
+                } finally {
+                    SortBenchmarks_jmhType.setupInvocationMutexUpdater.set(l_sortbenchmarks0_G, 0);
+                }
+            } else {
+                while (SortBenchmarks_jmhType.setupInvocationMutexUpdater.get(l_sortbenchmarks0_G) == 1) {
+                    if (control.isFailing) throw new FailureAssistException();
+                    if (Thread.interrupted()) throw new InterruptedException();
+                }
+            }
+            long rt = System.nanoTime();
             l_sortbenchmarks0_G.MergeSort(blackhole);
+            realTime += (System.nanoTime() - rt);
+            if (SortBenchmarks_jmhType.tearInvocationMutexUpdater.compareAndSet(l_sortbenchmarks0_G, 0, 1)) {
+                try {
+                    if (control.isFailing) throw new FailureAssistException();
+                    if (l_sortbenchmarks0_G.readyInvocation) {
+                        l_sortbenchmarks0_G.readyInvocation = false;
+                    }
+                } catch (Throwable t) {
+                    control.isFailing = true;
+                    throw t;
+                } finally {
+                    SortBenchmarks_jmhType.tearInvocationMutexUpdater.set(l_sortbenchmarks0_G, 0);
+                }
+            } else {
+                while (SortBenchmarks_jmhType.tearInvocationMutexUpdater.get(l_sortbenchmarks0_G) == 1) {
+                    if (control.isFailing) throw new FailureAssistException();
+                    if (Thread.interrupted()) throw new InterruptedException();
+                }
+            }
         }
         result.stopTime = System.nanoTime();
         result.realTime = realTime;
