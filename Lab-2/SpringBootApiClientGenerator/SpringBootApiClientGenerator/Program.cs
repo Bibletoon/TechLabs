@@ -1,9 +1,12 @@
-﻿using Antlr4.Runtime;
+﻿using System.Text.RegularExpressions;
+using Antlr4.Runtime;
 using SpringBootApiClientGenerator.AntlrParser;
 using SpringBootApiClientGenerator.AntlrParser.Models;
 using SpringBootApiClientGenerator.Generator;
 
-string basePath = @"C:\Users\alex8\Documents\Tech\bibletoon\Lab-2\";
+var math = Regex.Match(Directory.GetCurrentDirectory(), @"[\\\/a-zA-Z\-_0-9:]+bibletoon\\Lab-2\\");
+
+string basePath = math.Value;
 
 string serverPath = Path.Combine(basePath, @"Server\spring-boot-api-example\src\main\java\com\tomgregory\");
 string codePath = Path.Combine(basePath, @"SpringBootApiClientGenerator\SpringBootApiClientGenerator");
